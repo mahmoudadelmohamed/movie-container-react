@@ -3,7 +3,7 @@ import Card from '../components/Card/Card';
 import Pagination from '../components/Pagination/Pagination';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
-import Title from '../components/Title/Title';
+ 
 class DefaultPage extends Component {
   state = {
     movies: [],
@@ -42,7 +42,7 @@ class DefaultPage extends Component {
       })
     }
     else {
-    fetch(`${this.state.api_url}?api_key=${this.state.api_key}`)
+    fetch(`${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
