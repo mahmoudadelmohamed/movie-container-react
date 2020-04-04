@@ -1,0 +1,28 @@
+@import "../../scss/variables";
+.form_search {
+  padding: 0.5rem 0.2rem;
+  ::placeholder {
+   color: $offwhite;
+  }
+}
+.form_input {
+  border-radius: 1.6rem;
+  border-left: 0;
+  padding: 1.2rem 1rem;
+  background: $primary;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  &:focus {
+    background: $primary;
+    color: $offwhite;
+    outline: 0;
+  }
+}
+.icon {
+  border-radius: 1.6rem;
+  border-right: 0;
+  background-color: $primary;
+  color: $offwhite;
+  padding:  0 1rem;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

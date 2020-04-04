@@ -1,0 +1,26 @@
+@import "../../scss/variables";
+
+.slider {
+ .slider__slide {
+    height: 4.5rem;
+    width: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slider__img {
+    border-radius: 50%;
+    width: 60%;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+}
+.slick-prev:before,
+.slick-next:before {
+  color: $primary !important;
+}
+.slider_title {
+  margin-top: 2.4rem
+}

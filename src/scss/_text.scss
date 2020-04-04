@@ -1,0 +1,68 @@
+h1,h2,h3,h4 {
+  color: $primary;
+}
+body {
+  color: $secondary;
+}
+h1 {
+  font-size: $large-bold;
+  font-family: $bold;
+}
+
+.h1-2 {
+  font-size: $large-bold;
+  font-family: $medium-font;
+}
+
+.h1-2-light {
+  font-size: $large-bold;
+  font-family: $light-font;
+}
+
+h2 {
+  font-size: $medium-light;
+  font-family: $bold;
+}
+.h2-2 {
+  font-size: $large-light;
+  font-family: $bold;
+}
+.h2-light {
+  font-size: $button-text;
+  font-family: $bold;
+  color: $primary-light;
+}
+
+.h2-light {
+  font-size: $button-text;
+  font-family: $bold;
+  color: $primary-light;
+}
+.h2-header {
+  font-size: $button-text;
+  font-family: $light-font;
+  color: $primary;
+}
+
+.title_uppercase {
+  text-transform: uppercase;
+}
+.title_mt {
+  margin-top: 2.4rem;
+}
+.small {
+  font-size: $button-text;
+  font-family: $medium-font;
+}
+.small-bold {
+  font-size: $button-text;
+  font-family: $bold;
+}
+.spcial_language {
+  font-size: $button-text;
+  font-family: $bold;
+  opacity: 0.6;
+}
+.btn_link {
+  text-decoration: none;
+}

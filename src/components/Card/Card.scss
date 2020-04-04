@@ -1,0 +1,28 @@
+@import "../../scss/variables";
+
+.card {
+  border-radius: $border-radius;
+  transition: $transition;
+  max-width: 250px;
+  img {
+    box-shadow: $box-shadow;
+    border-radius: $border-radius $border-radius 0 0;
+    min-height: 374px;
+    transition: $transition;
+  }
+  &:hover {
+    background-color: $primary-light;
+    box-shadow: $box-shadow;
+    transform: $scal;
+    cursor: pointer;
+  .card_img {
+    box-shadow: none;
+  }
+  .card_title {
+    color: $offwhite;
+  }
+  .stars  {
+    color: $offwhite;
+  }
+  }
+}
