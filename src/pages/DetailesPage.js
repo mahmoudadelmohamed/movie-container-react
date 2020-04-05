@@ -10,7 +10,7 @@ import Slider from '../components/Slider/Slider';
 import { FaLink, FaImdb, FaPlay, FaArrowRight } from 'react-icons/fa';
 import { Container, Row, Col } from "react-bootstrap";
 import ModalVideo from 'react-modal-video'
-
+require('dotenv').config();
 
 class DetailesPage extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class DetailesPage extends Component {
       this.state = {
         id: this.props.match.params.id,
         api_url: `https://api.themoviedb.org/3/movie/`,
-        api_key: process.env.REACT_APP_API_SPACE,
         total_results: 0,
         current_page: 1,
         currentSearch: '',

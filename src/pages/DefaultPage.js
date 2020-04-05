@@ -3,11 +3,10 @@ import Card from '../components/Card/Card';
 import Pagination from '../components/Pagination/Pagination';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
-
+require('dotenv').config();
 class DefaultPage extends Component {
   state = {
     movies: [],
-    api_key: process.env.REACT_APP_API_SPACE,
     api_url: `https://api.themoviedb.org/3/discover/movie`,
     search_resualt: `https://api.themoviedb.org/3/search/movie`,
     loading: false,
