@@ -4,6 +4,7 @@ import Pagination from '../components/Pagination/Pagination';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
 require('dotenv').config();
+console.log(process.env.REACT_APP_API_SPACE);
 class DefaultPage extends Component {
   state = {
     movies: [],
