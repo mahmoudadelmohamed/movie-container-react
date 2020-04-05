@@ -34,7 +34,7 @@ class DetailesPage extends Component {
    })
  }
   componentDidMount() {
-    fetch(`${this.state.api_url}${this.state.id}?api_key=${this.state.api_key}`)
+    fetch(`${this.state.api_url}${this.state.id}?api_key=${process.env.REACT_APP_API_SPACE}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -44,7 +44,7 @@ class DetailesPage extends Component {
       .catch(error => {
         console.log(error);
       })
-      fetch(`${this.state.api_url}${this.state.id}${`/videos`}?api_key=${this.state.api_key}`)
+      fetch(`${this.state.api_url}${this.state.id}${`/videos`}?api_key=${process.env.REACT_APP_API_SPACE}`)
         .then(response => response.json())
         .then(data => {
           let trailer_id = data.results[0].key;
@@ -55,7 +55,7 @@ class DetailesPage extends Component {
         .catch(error => {
           console.log(error);
         })
-        fetch(`${this.state.api_url}${this.state.id}/credits?api_key=${this.state.api_key}`)
+        fetch(`${this.state.api_url}${this.state.id}/credits?api_key=${process.env.REACT_APP_API_SPACE}`)
           .then(response => response.json())
           .then(data => {
             let slider_people = data.cast;
@@ -85,7 +85,7 @@ class DetailesPage extends Component {
 
   return (
      <Container fluid className="mt-5">
-           
+
         <Row className="d-flex align-items-center">
           <Col lg={5} sm={12}>
           <Image

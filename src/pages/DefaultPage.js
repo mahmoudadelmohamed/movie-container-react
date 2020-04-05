@@ -3,10 +3,11 @@ import Card from '../components/Card/Card';
 import Pagination from '../components/Pagination/Pagination';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
-const api_key = process.env.REACT_APP_API_SPACE
+
 class DefaultPage extends Component {
   state = {
     movies: [],
+    api_key: process.env.REACT_APP_API_SPACE,
     api_url: `https://api.themoviedb.org/3/discover/movie`,
     search_resualt: `https://api.themoviedb.org/3/search/movie`,
     loading: false,
@@ -29,7 +30,7 @@ class DefaultPage extends Component {
   }
   getData = (search_value) => {
     if(search_value) {
-    fetch(`${this.state.search_resualt}?api_key=${api_key}&query=${search_value}`)
+    fetch(`${this.state.search_resualt}?api_key=${process.env.REACT_APP_API_SPACE}&query=${search_value}`)
       .then(responsre => responsre.json())
       .then(data => {
         this.setState({
@@ -41,7 +42,7 @@ class DefaultPage extends Component {
       })
     }
     else {
-    fetch(`${this.state.api_url}?api_key=${api_key}`)
+    fetch(`${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -59,7 +60,7 @@ class DefaultPage extends Component {
     this.getData();
   }
   nextPage = (pageNumber) => {
-    fetch(`${this.state.api_url}?api_key=${api_key}&page=${pageNumber}`)
+    fetch(`${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}&page=${pageNumber}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -91,7 +92,6 @@ class DefaultPage extends Component {
       />
   );
 })
-  console.log(numberPages, this.state.total_results);
   return (
      <>
      <Search
