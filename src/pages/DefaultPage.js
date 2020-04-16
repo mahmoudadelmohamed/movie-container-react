@@ -56,6 +56,7 @@ class DefaultPage extends Component {
     })
     e.preventDefault();
   }
+  // Handling next and previous button in Search, genres and default page 
   handlePagination = (pageNumber) => {
     console.log(pageNumber);
     axios.get(`${this.state.handle_paginantion}&page=${pageNumber}`)
