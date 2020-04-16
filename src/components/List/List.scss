@@ -1,0 +1,11 @@
+@import "../../scss/variables";
+
+.list {
+  list-style: none;
+  padding: 0;
+  font-family: $medium-font;
+  .list_item.active .btn {
+    color: #37474f;
+    border-color: #37474f;
+  }
+}

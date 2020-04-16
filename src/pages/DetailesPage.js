@@ -7,7 +7,8 @@ import GenresList from '../components/GenresList/GenresList';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Buttons from '../components/Buttons/Buttons';
 import Slider from '../components/Slider/Slider';
-import { FaLink, FaImdb, FaPlay, FaArrowRight } from 'react-icons/fa';
+import { faArrowLeft, faPlay, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faImdb } from "@fortawesome/free-brands-svg-icons";
 import { Container, Row, Col } from "react-bootstrap";
 import ModalVideo from 'react-modal-video'
 require('dotenv').config();
@@ -118,9 +119,13 @@ class DetailesPage extends Component {
                 rel="noopener noreferrer"
                 style={{textDecoration: 'none'}}>
                 <Buttons
-                  icon={<FaLink />}
+                // faArrowLeft, faPlay, faLink
+                  order="1"
+                  icon={faLink}
                   content="Website"
-                  className="buttons"
+                  them="outline-primary"
+                  iconMarginLeft="l"
+
                   />
               </a> }
               <a
@@ -128,23 +133,28 @@ class DetailesPage extends Component {
                 target="_blank" rel="noopener noreferrer"
                 style={{textDecoration: 'none'}}>
                 <Buttons
-                 icon={<FaImdb />}
+                 order="1"
+                 iconMarginLeft="l"
+                 icon={faImdb}
                  content="IMDB"
-                 className="buttons"
+                 them="outline-primary"
                  />
               </a>
                {this.state.movie_trailer &&
                  <Buttons
-                  icon={<FaPlay />}
+                  order="1"
+                  icon={faPlay}
                   content="Trailer"
-                  className="buttons"
+                  them="outline-primary"
+                  iconMarginLeft="l"
                   handleClick={ this.openModal }
                  />
                }
               <Buttons
-                icon={<FaArrowRight />}
+                icon={faArrowLeft}
                 content="Back"
-                className="buttons"
+                them="outline-primary"
+                iconMarginLeft="r"
               />
             </div>
            </Col>

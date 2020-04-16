@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Home from './pages/Home';
 import DetailesPage from './pages/DetailesPage';
 import PersonDetails from './pages/PersonDetails';
@@ -11,7 +10,7 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <>
+     <>
 
       <Switch>
         <Route exact path="/" component={Home} />

@@ -6,15 +6,18 @@
   }
 }
 .form_input {
+  font-size: $button-text;
+  font-family: $medium-font;
   border-radius: 1.6rem;
   border-left: 0;
-  padding: 1.2rem 1rem;
+  padding: 1.2rem 2rem 1rem 0;
   background: $primary;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   &:focus {
     background: $primary;
     color: $offwhite;
     outline: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
 .icon {

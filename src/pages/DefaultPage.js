@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
+import { slide as Menu } from "react-burger-menu";
 import Card from '../components/Card/Card';
-import Pagination from '../components/Pagination/Pagination';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
+import Title from '../components/Title/Title';
+import Buttons from '../components/Buttons/Buttons';
+import Logo from '../components/Logo/Logo';
+import List from '../components/List/List';
+import Pagination from '../components/Pagination/Pagination';
+import { Container, Col, Row } from 'react-bootstrap';
+import { faPoll, faHeart, faCalendar } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 require('dotenv').config();
-console.log(process.env.REACT_APP_API_SPACE);
+const list = [
+  { name: 'Popular', api: 'popular', id: 1 , icon: faHeart},
+  { name: 'Tod Rated', api: 'top_rated', id: 2, icon: faPoll },
+  { name: 'Upcoming', api: 'upcoming', id: 3 ,icon: faCalendar },
+]
 class DefaultPage extends Component {
   state = {
+    discover: list,
     movies: [],
     api_url: `https://api.themoviedb.org/3/discover/movie`,
     search_resualt: `https://api.themoviedb.org/3/search/movie`,
+    constant_api: `https://api.themoviedb.org/3/movie/`,
+    genres: [],
+    genres_url: `https://api.themoviedb.org/3/genre/movie/list`,
+    api_key: process.env.REACT_APP_API_SPACE,
     loading: false,
+    search: '',
+    isMenuOpen: null,
+    title_name: 'Popular',
+    sub_title: 'movies',
+    active_id: 1,
     total_results: 0,
     current_page: 1,
-    search: ''
+    handle_paginantion: ``
+    }
+  // This to handle scrolling top when choosing one of the genres from movie sidemen
+  scrollTo = () => {
+    return window.scrollTo(0, 0);;
   }
+  // Handling change with the search feild
   handleChange = (e) => {
     this.setState({
       search: e.target.value
     })
   }
+  // Handling submit with the search field
   handleSubmit = (e) => {
     let search_value = this.state.search;
     this.getData(search_value);
@@ -28,58 +56,132 @@ class DefaultPage extends Component {
     })
     e.preventDefault();
   }
-  getData = (search_value) => {
-    if(search_value) {
-    fetch(`${this.state.search_resualt}?api_key=${process.env.REACT_APP_API_SPACE}&query=${search_value}`)
-      .then(responsre => responsre.json())
-      .then(data => {
+  handlePagination = (pageNumber) => {
+    console.log(pageNumber);
+    axios.get(`${this.state.handle_paginantion}&page=${pageNumber}`)
+      .then(response => {
         this.setState({
-           movies: [...data.results]
+            movies: [...response.data.results],
+            current_page: pageNumber
         })
+        console.log(response.data.results);
       })
       .catch(error => {
         console.log(error);
+      })
+  }
+  handleClick = (id, api, name) => {
+    if(id > 3) {
+      // make a request based on genres by using the id of genre
+      let url = `${this.state.api_url}?api_key=${this.state.api_key}&with_genres=${id}`;
+      axios.get(url)
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          movies: [...response.data.results],
+          title_name: name,
+          sub_title: 'movies',
+          active_id: id,
+          handle_paginantion: response.config.url,
+          total_results: response.data.total_results,
+          current_page: 1
+        })
       })
     }
     else {
-    fetch(`${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          movies: [...data.results],
-          loading: true,
-          total_results: data.total_results
+        // make a request to fetching data of { popular, top_rated, upcoming }
+        let url = `${this.state.constant_api}${api}?api_key=${this.state.api_key}`;
+       axios.get(url)
+       .then(response => {
+         this.setState({
+           movies: [...response.data.results],
+           title_name: name,
+            sub_title: 'movies',
+            active_id: id,
+            handle_paginantion: response.config.url,
+            total_results: response.data.total_results,
+            current_page: 1
+         })
+       })
+    }
+  }
+ // make a request to fetching data of search end point
+  getData = (search_value) => {
+    if(search_value) {
+      let url = `${this.state.search_resualt}?api_key=${process.env.REACT_APP_API_SPACE}&query=${search_value}`;
+      axios.get(url)
+        .then(response => {
+          this.setState({
+             movies: [...response.data.results],
+             title_name: search_value,
+             sub_title: 'results',
+             handle_paginantion: response.config.url,
+             total_results: response.data.total_results
+          })
         })
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    }
+    else {
+      // make a request to fetching data which show in the default page
+      let url = `${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}`;
+      axios.get(url)
+        .then(response => {
+          this.setState({
+            movies: [...response.data.results],
+            loading: true,
+            handle_paginantion: response.config.url,
+            total_results: response.data.total_results
+          })
+        })
     }
   }
   componentDidMount(){
+    // make a request to fetching data genres which show in the sidemenu
+    axios.get(`${this.state.genres_url}?api_key=${this.state.api_key}`)
+      .then(response => {
+        this.setState({
+          genres: [...response.data.genres]
+        })
+    })
     this.getData();
   }
-  nextPage = (pageNumber) => {
-    fetch(`${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}&page=${pageNumber}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          movies: [...data.results],
-          current_page: pageNumber,
-          loading: true
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      })
+  renderMenu = () => {
+    return (
+      <div className="side-menu pb-3">
+      <Logo />
+      <List
+        list={this.state.discover}
+        handleClick={this.handleClick}
+        title="discover"
+        scrollTo={this.scrollTo}
+        active_id={this.state.active_id}
+      />
+      <List
+        list={this.state.genres}
+        handleClick={this.handleClick}
+        title="genres"
+        scrollTo={this.scrollTo}
+        active_id={this.state.active_id}
+      />
+      </div>
+    );
   }
-  handleScroll = () => {
-  if(window.pageYOffset >= 1000) {
-    window.scrollTo(0, 0)
+  isMenuOpen = ({isOpened}) => {
+    this.setState({ isMenuOpen: isOpened })
   }
+checkDisaple = (type) => {
+   const { isMenuOpen } = this.state;
+   if(type === 'mobile') {
+     return (
+       <Menu onStateChange={this.isMenuOpen} isOpen={isMenuOpen}>
+           {this.renderMenu()}
+        </Menu>
+     );
+   }
+   return this.renderMenu();
 }
   render() {
-   const numberPages = Math.floor(this.state.total_results / 20);
+    const number_pages = Math.floor(this.state.total_results / 20);
+    console.log(this.state.current_page);
    const moviesDetailes = this.state.movies.map(items => {
     return (
       <Card
@@ -94,26 +196,40 @@ class DefaultPage extends Component {
 })
   return (
      <>
-     <Search
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        search={this.state.search}
-      />
-     { !this.state.loading  ? <Loading className="grow"/> :
-      <div className="container">
-
-      <div className="row">
-        { moviesDetailes }
-      </div>
-      { numberPages > 20 ? <Pagination
-         pages={ numberPages }
-         nextPage={this.nextPage}
-         current={this.state.current_page}
-         scrollTo={ this.handleScroll }
-       /> : null }
-
-    </div> }
-    </>
+      <Container fluid>
+        <Row>
+        <Col sm={2}>
+        { this.checkDisaple(null) }
+        </Col>
+          <Col sm={10}>
+          <Search
+             handleChange={this.handleChange}
+             handleSubmit={this.handleSubmit}
+             search={this.state.search}
+           />
+          { !this.state.loading  ? <Loading className="grow"/> :
+           <div className="container">
+           <Title
+            size="sm"
+            title={this.state.title_name}
+            sub_title={this.state.sub_title}
+          />
+           <div className="row pb-3">
+               { moviesDetailes }
+           </div>
+           <div className="row pb-3 d-flex">
+             <Pagination
+              pages={number_pages}
+              nextPage={this.handlePagination}
+              current_page={this.state.current_page}
+              scrollTo={ this.scrollTo }
+               />
+           </div>
+         </div> }
+          </Col>
+        </Row>
+      </Container>
+      </>
     );
   }
 }

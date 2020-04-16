@@ -28,7 +28,6 @@ const Search = ({ handleChange, handleSubmit, search }) => {
       </InputGroup>
       </Form>
     </Navbar>
-
   </>
    );
 }

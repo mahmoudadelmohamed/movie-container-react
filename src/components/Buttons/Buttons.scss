@@ -1,26 +1,62 @@
 @import "../../scss/variables";
-
-.buttons {
+button.btn {
   box-shadow: $box-shadow-sm;
   transition: $transition-long;
-  border: 1px solid $primary !important;
-  padding: 0.5rem 1.75rem;
+  padding: 0.4rem 1.75rem;
   border-radius: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $offwhite !important;
-  color: $primary !important;
-  font-size: 0.8rem;
+  font-size: $button-text !important;
   &:hover {
-   box-shadow: none;
-   transform: translateY(-3px);
-   outline: 0 !important;
-   background-color: $primary !important;
-   color: $offwhite !important;
- }
-  .btn_icon {
-    padding: 0 0 0 0.5rem;
+    box-shadow: none;
+    transform: translateY(-3px);
+    outline: 0;
   }
-
+  &:active,
+  &:visited {
+    background-color: $primary !important;
+    color: $offwhite !important;
+  }
+}
+.btn.btn-sm {
+  width: 90%;
+  padding: 0.3rem 0.2rem;
+  justify-content: start;
+  font-size: 0.8rem !important;
+}
+.btn.btn-outline-primary {
+  box-shadow: none;
+  color: $primary;
+  border-color: $primary;
+  &:hover {
+    color: $offwhite;
+    background: $primary;
+    border-color: currentColor;
+    box-shadow: $box-shadow-sm;
+  }
+}
+.btn.btn-outline-pages {
+  box-shadow: none;
+  color: $offwhite;
+  border-color: $primary;
+  background: $primary;
+  &:hover {
+    background: $offwhite;
+    color: $primary;
+    border-color: currentColor;
+    box-shadow: $box-shadow-sm;
+  }
+}
+.btn.btn-outline-secondary {
+  outline: none;
+  border-color: transparent;
+  box-shadow: none;
+  color: $disabledGray;
+  &:hover {
+    transform: none;
+    border-color: $disabledGray;
+    background-color: transparent;
+    color: $disabledGray;
+  }
 }

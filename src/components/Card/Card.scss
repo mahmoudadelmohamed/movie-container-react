@@ -3,11 +3,11 @@
 .card {
   border-radius: $border-radius;
   transition: $transition;
-  max-width: 250px;
+  max-width: 240px;
   img {
     box-shadow: $box-shadow;
     border-radius: $border-radius $border-radius 0 0;
-    min-height: 374px;
+    min-height: 290px;
     transition: $transition;
   }
   &:hover {
