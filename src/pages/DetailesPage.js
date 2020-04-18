@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Image from '../components/Image/Image';
 import imageFounder from '../assets/images/notfound.png';
 import Rating from '../components/Rating/Rating';
@@ -7,10 +8,12 @@ import GenresList from '../components/GenresList/GenresList';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Buttons from '../components/Buttons/Buttons';
 import Slider from '../components/Slider/Slider';
+import GridMovies from '../components/GridMovies/GridMovies';
 import { faArrowLeft, faPlay, faLink } from "@fortawesome/free-solid-svg-icons";
 import { faImdb } from "@fortawesome/free-brands-svg-icons";
 import { Container, Row, Col } from "react-bootstrap";
-import ModalVideo from 'react-modal-video'
+import ModalVideo from 'react-modal-video';
+import axios from 'axios';
 require('dotenv').config();
 
 class DetailesPage extends Component {
@@ -25,48 +28,49 @@ class DetailesPage extends Component {
         movie_detailes: {},
         movie_trailer: '',
         isVideoOpen: false,
-        person_slider: []
+        person_slider: [],
+        reload_page: null
       }
+      window.addEventListener('load', this.fullyLoad);
   }
- openModal = () => {
-   this.setState({
-     iscVideoOpen: true
-   })
- }
+   openModal = () => {
+     this.setState({
+       iscVideoOpen: true
+     })
+   }
   componentDidMount() {
-    fetch(`${this.state.api_url}${this.state.id}?api_key=${process.env.REACT_APP_API_SPACE}`)
-      .then(response => response.json())
-      .then(data => {
+    axios.get(`${this.state.api_url}${this.state.id}?api_key=${process.env.REACT_APP_API_SPACE}`)
+      .then(response => {
         this.setState({
-          movie_detailes: {...data}
+          movie_detailes: {...response.data}
         })
       })
-      .catch(error => {
-        console.log(error);
+    axios.get(`${this.state.api_url}${this.state.id}${`/videos`}?api_key=${process.env.REACT_APP_API_SPACE}`)
+      .then(response => {
+        let trailer_id = response.data.results.length > 0 ? response.data.results[0].key : 'notfound';
+        this.setState({
+          movie_trailer: trailer_id
+        })
       })
-      fetch(`${this.state.api_url}${this.state.id}${`/videos`}?api_key=${process.env.REACT_APP_API_SPACE}`)
-        .then(response => response.json())
-        .then(data => {
-          let trailer_id = data.results[0].key;
-          this.setState({
-            movie_trailer: trailer_id
-          })
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        fetch(`${this.state.api_url}${this.state.id}/credits?api_key=${process.env.REACT_APP_API_SPACE}`)
-          .then(response => response.json())
-          .then(data => {
-            let slider_people = data.cast;
-            this.setState({
-              person_slider: slider_people
-            })
+    axios.get(`${this.state.api_url}${this.state.id}/credits?api_key=${process.env.REACT_APP_API_SPACE}`)
+      .then(response => {
+      let slider_people = response.data.cast;
 
-          })
-          .catch(error => {
-            console.log(error);
-          })
+        this.setState({
+          person_slider: slider_people
+        })
+      })
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.match.params.id === nextState.id) {
+       return true;
+    }
+    else {
+      return false, window.location.reload();
+    }
+  }
+  fullyLoad = () => {
+    return window.scrollTo(0, 0);
   }
   render() {
   const {
@@ -84,8 +88,8 @@ class DetailesPage extends Component {
   } = this.state.movie_detailes;
 
   return (
+    <>
      <Container fluid className="mt-5">
-
         <Row className="d-flex align-items-center">
           <Col lg={5} sm={12}>
           <Image
@@ -93,7 +97,6 @@ class DetailesPage extends Component {
             loading={poster_path}
           />
            </Col>
-
            <Col lg={5} sm={12}>
             <Title size="lg" title={title} sub_title={tagline} />
             <div className="d-flex justify-content-between align-items-center flex-wrap mb-lg-20 mb-xl-40 mb-xs-40 mt-3">
@@ -150,15 +153,16 @@ class DetailesPage extends Component {
                   handleClick={ this.openModal }
                  />
                }
-              <Buttons
-                icon={faArrowLeft}
-                content="Back"
-                them="outline-primary"
-                iconMarginLeft="r"
-              />
+               <Link to="/" style={{textDecoration: 'none'}}>
+               <Buttons
+                 icon={faArrowLeft}
+                 content="Back"
+                 them="outline-primary"
+                 iconMarginRight="r"
+               />
+               </Link>
             </div>
            </Col>
-
         </Row>
       <ModalVideo
         channel='youtube'
@@ -166,9 +170,16 @@ class DetailesPage extends Component {
         videoId={this.state.movie_trailer}
         onClose={() => this.setState({iscVideoOpen: false})}
        />
-
+      <GridMovies
+        title="recommended"
+        sub_title="movies"
+        id={ this.state.id }
+        api_url={ this.state.api_url }
+        api_key={ this.state.api_key }
+      />
      </Container>
 
+     </>
     );
   }
 

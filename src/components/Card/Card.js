@@ -6,6 +6,7 @@ import "./Card.scss";
 import '../Rating/Rating.scss'
 
  class Card extends Component {
+
    render() {
      const { poster, title, vote, id, loading } = this.props;
      return (

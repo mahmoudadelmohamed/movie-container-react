@@ -13,7 +13,7 @@ render() {
        className={`list_item mb-2 ${id === active_id ? 'active' : ''}`}
        key={id}
        onClick={() => {handleClick(id, api, name); scrollTo()}} >
-         <a>
+         <a href="/#">
           <Button
             iconMarginRight="r"
             iconMarginLeft="l"

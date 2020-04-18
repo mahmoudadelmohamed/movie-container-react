@@ -12,34 +12,46 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { faPoll, faHeart, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 require('dotenv').config();
+// console.log();
 const list = [
   { name: 'Popular', api: 'popular', id: 1 , icon: faHeart},
   { name: 'Tod Rated', api: 'top_rated', id: 2, icon: faPoll },
   { name: 'Upcoming', api: 'upcoming', id: 3 ,icon: faCalendar },
 ]
 class DefaultPage extends Component {
-  state = {
-    discover: list,
-    movies: [],
-    api_url: `https://api.themoviedb.org/3/discover/movie`,
-    search_resualt: `https://api.themoviedb.org/3/search/movie`,
-    constant_api: `https://api.themoviedb.org/3/movie/`,
-    genres: [],
-    genres_url: `https://api.themoviedb.org/3/genre/movie/list`,
-    api_key: process.env.REACT_APP_API_SPACE,
-    loading: false,
-    search: '',
-    isMenuOpen: null,
-    title_name: 'Popular',
-    sub_title: 'movies',
-    active_id: 1,
-    total_results: 0,
-    current_page: 1,
-    handle_paginantion: ``
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      discover: list,
+      movies: [],
+      api_url: `https://api.themoviedb.org/3/discover/movie`,
+      search_resualt: `https://api.themoviedb.org/3/search/movie`,
+      constant_api: `https://api.themoviedb.org/3/movie/`,
+      genres: [],
+      genres_url: `https://api.themoviedb.org/3/genre/movie/list`,
+      api_key: process.env.REACT_APP_API_SPACE,
+      loading: false,
+      search: '',
+      isMenuOpen: null,
+      title_name: 'Popular',
+      sub_title: 'movies',
+      active_id: 1,
+      total_results: 0,
+      current_page: 1,
+      handle_paginantion: ``,
+      isMobile: null
+      }
+      window.addEventListener('resize', this.changeMobile)
+  }
+  // This to handle side menu when it open or close based on screen size
+  changeMobile = () => {
+   window.matchMedia("(max-width: 1024px)").matches
+   ? this.setState({ isMobile: true })
+   : this.setState({ isMobile: false })
+  }
   // This to handle scrolling top when choosing one of the genres from movie sidemen
   scrollTo = () => {
-    return window.scrollTo(0, 0);;
+    return window.scrollTo(0, 0);
   }
   // Handling change with the search feild
   handleChange = (e) => {
@@ -56,16 +68,14 @@ class DefaultPage extends Component {
     })
     e.preventDefault();
   }
-  // Handling next and previous button in Search, genres and default page 
+  // Handling next and previous button in Search, genres and default page
   handlePagination = (pageNumber) => {
-    console.log(pageNumber);
     axios.get(`${this.state.handle_paginantion}&page=${pageNumber}`)
       .then(response => {
         this.setState({
             movies: [...response.data.results],
             current_page: pageNumber
         })
-        console.log(response.data.results);
       })
       .catch(error => {
         console.log(error);
@@ -77,7 +87,6 @@ class DefaultPage extends Component {
       let url = `${this.state.api_url}?api_key=${this.state.api_key}&with_genres=${id}`;
       axios.get(url)
       .then(response => {
-        console.log(response.data);
         this.setState({
           movies: [...response.data.results],
           title_name: name,
@@ -171,7 +180,7 @@ class DefaultPage extends Component {
   }
 checkDisaple = (type) => {
    const { isMenuOpen } = this.state;
-   if(type === 'mobile') {
+   if(type) {
      return (
        <Menu onStateChange={this.isMenuOpen} isOpen={isMenuOpen}>
            {this.renderMenu()}
@@ -181,8 +190,7 @@ checkDisaple = (type) => {
    return this.renderMenu();
 }
   render() {
-    const number_pages = Math.floor(this.state.total_results / 20);
-    console.log(this.state.current_page);
+   const number_pages = Math.floor(this.state.total_results / 20);
    const moviesDetailes = this.state.movies.map(items => {
     return (
       <Card
@@ -200,9 +208,9 @@ checkDisaple = (type) => {
       <Container fluid>
         <Row>
         <Col sm={2}>
-        { this.checkDisaple(null) }
+        { this.checkDisaple(this.state.isMobile) }
         </Col>
-          <Col sm={10}>
+          <Col lg={10} sm={12}>
           <Search
              handleChange={this.handleChange}
              handleSubmit={this.handleSubmit}
