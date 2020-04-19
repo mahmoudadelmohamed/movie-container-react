@@ -83,7 +83,7 @@ class DefaultPage extends Component {
   handleClick = (id, api, name) => {
     if(id > 3) {
       // make a request based on genres by using the id of genre
-      let url = `${this.state.api_url}?api_key=${this.state.api_key}&with_genres=${id}`;
+      let url = `${this.state.api_url}?api_key=${process.env.REACT_APP_API_SPACE}&with_genres=${id}`;
       axios.get(url)
       .then(response => {
         this.setState({
@@ -99,7 +99,7 @@ class DefaultPage extends Component {
     }
     else {
         // make a request to fetching data of { popular, top_rated, upcoming }
-        let url = `${this.state.constant_api}${api}?api_key=${this.state.api_key}`;
+        let url = `${this.state.constant_api}${api}?api_key=${process.env.REACT_APP_API_SPACE}`;
        axios.get(url)
        .then(response => {
          this.setState({
@@ -145,7 +145,7 @@ class DefaultPage extends Component {
   }
   componentDidMount(){
     // make a request to fetching data genres which show in the sidemenu
-    axios.get(`${this.state.genres_url}?api_key=${this.state.api_key}`)
+    axios.get(`${this.state.genres_url}?api_key=${process.env.REACT_APP_API_SPACE}`)
       .then(response => {
         this.setState({
           genres: [...response.data.genres]

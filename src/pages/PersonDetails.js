@@ -22,7 +22,7 @@ class PersonDetails extends Component {
     }
   }
   componentDidMount() {
-    axios.get(`${this.state.api_url}person/${this.state.id}?api_key=${this.state.api_key}`)
+    axios.get(`${this.state.api_url}person/${this.state.id}?api_key=${process.env.REACT_APP_API_SPACE}`)
       .then(response => {
        this.setState({
           detailes: response.data
@@ -33,9 +33,6 @@ class PersonDetails extends Component {
 
   render() {
     const { birthday, name, profile_path, biography, imdb_id, homepage} = this.state.detailes;
-
-     console.log(this.state.detailes);
-
    console.log(homepage);
     return (
       <Container fluid className="mt-5">
