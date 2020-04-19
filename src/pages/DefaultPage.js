@@ -4,7 +4,6 @@ import Card from '../components/Card/Card';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
 import Title from '../components/Title/Title';
-import Buttons from '../components/Buttons/Buttons';
 import Logo from '../components/Logo/Logo';
 import List from '../components/List/List';
 import Pagination from '../components/Pagination/Pagination';

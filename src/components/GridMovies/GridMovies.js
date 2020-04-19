@@ -12,16 +12,29 @@ class GridMovies extends Component {
        sub_title: this.props.sub_title,
        api_url: this.props.api_url,
        api_key: process.env.REACT_APP_API_SPACE,
+       actor_id: this.props.actor_id,
        movies: []
      }
    }
    componentDidMount() {
-     axios.get(`${this.state.api_url}${this.state.id}/recommendations?api_key=${this.state.api_key}`)
-       .then(response => {
-         this.setState({
-           movies: [...response.data.results]
+     if(this.state.title === 'recommended') {
+       axios.get(`${this.state.api_url}${this.state.id}/recommendations?api_key=${this.state.api_key}`)
+         .then(response => {
+           this.setState({
+             movies: [...response.data.results]
+           })
          })
-       })
+     }
+     else {
+       axios.get(`${this.state.api_url}person/${this.state.actor_id}/movie_credits?api_key=ea9e6ac8643082244c38fae131ea1769`)
+         .then(response => {
+           this.setState({
+             movies: [...response.data.cast]
+           })
+           console.log(response.data.cast);
+         })
+     }
+
    }
 
   render() {

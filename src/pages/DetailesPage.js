@@ -9,7 +9,7 @@ import Paragraph from '../components/Paragraph/Paragraph';
 import Buttons from '../components/Buttons/Buttons';
 import Slider from '../components/Slider/Slider';
 import GridMovies from '../components/GridMovies/GridMovies';
-import { faArrowLeft, faPlay, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faPlay, faLink } from "@fortawesome/free-solid-svg-icons";
 import { faImdb } from "@fortawesome/free-brands-svg-icons";
 import { Container, Row, Col } from "react-bootstrap";
 import ModalVideo from 'react-modal-video';
@@ -122,7 +122,7 @@ class DetailesPage extends Component {
                 rel="noopener noreferrer"
                 style={{textDecoration: 'none'}}>
                 <Buttons
-                // faArrowLeft, faPlay, faLink
+                // faHome, faPlay, faLink
                   order="1"
                   icon={faLink}
                   content="Website"
@@ -155,9 +155,9 @@ class DetailesPage extends Component {
                }
                <Link to="/" style={{textDecoration: 'none'}}>
                <Buttons
-                 icon={faArrowLeft}
+                 icon={faHome}
                  content="Back"
-                 them="outline-primary"
+                 them="outline-pages"
                  iconMarginRight="r"
                />
                </Link>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button as Btn } from "react-bootstrap";
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./Buttons.scss";
 
 const Button = ({ content, size, them, icon, className, handleClick, iconMarginLeft, iconMarginRight, order }) => {
   return (
- 
+
    <Btn
     variant={them}
      size={size}

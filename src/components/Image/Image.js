@@ -6,7 +6,6 @@ const Image = ({ src, loading }) => {
   return(
     <div className="image-wrapper">
       { loading ?  <img src={src ? src : `${imageFounder}`} alt={src} className="image" /> : <Loading className="border"/> }
-
      </div>
   )
 }
