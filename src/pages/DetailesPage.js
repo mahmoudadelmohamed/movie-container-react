@@ -91,7 +91,7 @@ class DetailesPage extends Component {
     <>
      <Container fluid className="mt-5">
         <Row className="d-flex align-items-center">
-          <Col lg={5} sm={12}>
+          <Col lg={5} sm={12} >
           <Image
             src={poster_path ? `https://image.tmdb.org/t/p/w780${poster_path}` : `${imageFounder}`}
             loading={poster_path}

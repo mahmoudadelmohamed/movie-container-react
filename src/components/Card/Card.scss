@@ -1,5 +1,4 @@
 @import "../../scss/variables";
-
 .card {
   border-radius: $border-radius;
   transition: $transition;
@@ -24,5 +23,12 @@
   .stars  {
     color: $offwhite;
   }
+  }
+}
+@media screen and (max-width: 768px) {
+  .card-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
   }
 }

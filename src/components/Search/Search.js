@@ -5,7 +5,7 @@ import "./Search.scss";
 const Search = ({ handleChange, handleSubmit, search }) => {
     return (
     <>
-     <Navbar expand="lg" className="d-flex align-items-center justify-content-end">
+     <Navbar expand="lg" className="justify-content-end">
       <Form
         inline
         className="form_search"

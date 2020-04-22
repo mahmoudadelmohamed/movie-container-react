@@ -10,8 +10,8 @@ import '../Rating/Rating.scss'
    render() {
      const { poster, title, vote, id, loading } = this.props;
      return (
-       <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
-       <div className="card text-center border-0 d-flex justify-content-center align-items-center">
+       <div className="col-lg-3 col-md-4 col-sm-6 mt-4 card-container">
+       <div className="card text-center border-0 ">
          <div className="img-container">
            <Poster id={id} poster={poster} loading={loading} />
          </div>

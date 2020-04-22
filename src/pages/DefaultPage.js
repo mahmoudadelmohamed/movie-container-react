@@ -42,9 +42,10 @@ class DefaultPage extends Component {
       }
       window.addEventListener('resize', this.changeMobile)
   }
-  // This to handle side menu when it open or close based on screen size
-  changeMobile = () => {
+  // This to handl  e side menu when it open or close based on screen size
+   changeMobile = () => {
    window.matchMedia("(max-width: 1024px)").matches
+
    ? this.setState({ isMobile: true })
    : this.setState({ isMobile: false })
   }
@@ -177,7 +178,7 @@ class DefaultPage extends Component {
   isMenuOpen = ({isOpened}) => {
     this.setState({ isMenuOpen: isOpened })
   }
-checkDisaple = (type) => {
+checkDisplay = (type) => {
    const { isMenuOpen } = this.state;
    if(type) {
      return (
@@ -207,7 +208,7 @@ checkDisaple = (type) => {
       <Container fluid>
         <Row>
         <Col sm={2}>
-        { this.checkDisaple(this.state.isMobile) }
+        { this.checkDisplay(window.innerWidth <= 788 ? true : this.state.isMobile) }
         </Col>
           <Col lg={10} sm={12}>
           <Search
