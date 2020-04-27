@@ -1,2 +1,8 @@
 @import "../../scss/variables";
- 
+
+@media screen and (max-width: 768px) {
+  .title_container {
+    padding-top: 1rem;
+  }
+
+}

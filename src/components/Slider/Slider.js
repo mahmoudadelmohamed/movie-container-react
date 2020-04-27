@@ -24,28 +24,27 @@ class Sliding extends Component {
       );
     })
     let settings = {
-
        speed: 400,
-       slidesToShow: 9,
+       slidesToShow: 8,
        slidesToScroll: 1,
        autoplay: true,
        responsive: [
    {
-     breakpoint: 480,
+     breakpoint: 492,
      settings: {
-       slidesToShow: 5
+       slidesToShow: 6
      }
    },
    {
-     breakpoint: 1440,
+     breakpoint: 991,
      settings: {
-       slidesToShow: 8
+       slidesToShow: 11
      }
    },
    {
      breakpoint: 796,
      settings: {
-       slidesToShow: 8
+       slidesToShow: 9
      }
    }
  ]

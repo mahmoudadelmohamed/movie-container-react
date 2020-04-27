@@ -6,6 +6,7 @@ import Loading from '../components/Loading/Loading';
 import Title from '../components/Title/Title';
 import Logo from '../components/Logo/Logo';
 import List from '../components/List/List';
+import Empty from '../components/Empty/Empty';
 import Pagination from '../components/Pagination/Pagination';
 import { Container, Col, Row } from 'react-bootstrap';
 import { faPoll, faHeart, faCalendar } from "@fortawesome/free-solid-svg-icons";
@@ -121,6 +122,7 @@ class DefaultPage extends Component {
       let url = `${this.state.search_resualt}?api_key=${process.env.REACT_APP_API_SPACE}&query=${search_value}`;
       axios.get(url)
         .then(response => {
+          // console.log(response.data.results);
           this.setState({
              movies: [...response.data.results],
              title_name: search_value,
@@ -193,16 +195,18 @@ checkDisplay = (type) => {
    const number_pages = Math.floor(this.state.total_results / 20);
    const moviesDetailes = this.state.movies.map(items => {
     return (
-      <Card
-        key={items.id}
-        poster={items.poster_path}
-        title={items.title}
-        vote={items.vote_average}
-        id={items.id}
-        loading={this.state.loading}
-      />
+        <Card
+          key={items.id}
+          poster={items.poster_path}
+          title={items.title}
+          vote={items.vote_average}
+          id={items.id}
+          loading={this.state.loading}
+        />
+
   );
 })
+
   return (
      <>
       <Container fluid>
@@ -224,7 +228,8 @@ checkDisplay = (type) => {
             sub_title={this.state.sub_title}
           />
            <div className="row pb-3">
-               { moviesDetailes }
+            { this.state.movies.length ? moviesDetailes :
+              <Empty title="There were no results for" title_name={this.state.title_name}/>}
            </div>
            <div className="row pb-3 d-flex">
              <Pagination
