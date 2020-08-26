@@ -15,5 +15,11 @@ Buttons to To facilitate access to the user (Trailer, IMDB, Back to home)
 This componant reflect all informations about the selected actor(name, birthday, informations, related movies)
 Buttons to To facilitate access to the user (IMDB, Back to home)
 
-### API 
+### Built With
+React js <br />
+React Bootstrap <br />
+SASS <br />
+Git <br />
+
+##### API 
 https://bit.ly/31qTUzK
