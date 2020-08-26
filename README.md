@@ -14,4 +14,6 @@ Buttons to To facilitate access to the user (Trailer, IMDB, Back to home)
 ## Person Details 
 This componant reflect all informations about the selected actor(name, birthday, informations, related movies)
 Buttons to To facilitate access to the user (IMDB, Back to home)
-## API https://bit.ly/31qTUzK
+
+### API 
+https://bit.ly/31qTUzK
