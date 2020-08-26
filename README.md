@@ -6,3 +6,9 @@ Check it live here https://movies-container.netlify.app/
 first, this app has core components (Home page, Details page, Default page, Person Details)
 ## Home page 
 Rendering the default Movies which is user find the popular movies in the first step 
+## Home page 
+Rendering the default Movies which is user find the popular movies in the first step 
+## Details page 
+This componant reflect all informations about the movie(name, rate, language, time, genres, synopsis, cast)
+Buttons to To facilitate access to the user (Trailer, IMDB, Back to home)
+
