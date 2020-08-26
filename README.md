@@ -4,6 +4,5 @@
 Check it live here https://movies-container.netlify.app/
 
 first, this app has core components (Home page, Details page, Default page, Person Details)
-
 ## Home page 
 Rendering the default Movies which is user find the popular movies in the first step 
