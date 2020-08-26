@@ -21,5 +21,4 @@ React Bootstrap <br />
 SASS <br />
 Git <br />
 
-##### API 
-https://bit.ly/31qTUzK
+##### API https://bit.ly/31qTUzK
